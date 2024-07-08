@@ -149,7 +149,7 @@ def home(request) -> Union[JsonResponse, render]:
                 bns_data = find_extra_data_from_bns(bns_supper)
                 return JsonResponse({'bns': bns_result, 'bns_data': bns_data})
             else:
-                return JsonResponse({'error': 'BNS section not found for given IPC.'}, status=404)
+                return JsonResponse({'bns': 'BNS section not found for given IPC.', 'bns_data': 'BNS section not found for given IPC.'})
         elif code_type == 'bns to ipc':
             ipc_result = find_ipc_from_bns(section)
             if ipc_result:
@@ -157,7 +157,7 @@ def home(request) -> Union[JsonResponse, render]:
                 bns_data = find_extra_data_from_bns(bns_supper)
                 return JsonResponse({'ipc': ipc_result, 'bns_data': bns_data})
             else:
-                return JsonResponse({'error': 'IPC section not found for given BNS.'}, status=404)
+                return JsonResponse({'ipc': 'IPC section not found for given BNS.', 'bns_data': 'IPC section not found for given BNS.'}, status=404)
         else:
             return JsonResponse({'error': 'Please provide either IPC or BNS section number.'}, status=400)
 
