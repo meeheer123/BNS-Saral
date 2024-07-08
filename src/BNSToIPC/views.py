@@ -139,21 +139,21 @@ def home(request) -> Union[JsonResponse, render]:
         Error messages in JSON format if the required data is not found or if neither `ipc` nor `bns` is provided.
     """
     if request.method == 'POST':
-        ipc_section = request.POST.get('ipc')
-        bns_section = request.POST.get('bns')
+        section = request.POST.get('section', '').strip()
+        code_type = request.POST.get('code_type', '').strip()
 
-        if ipc_section:
-            bns_result = find_bns_from_ipc(ipc_section)
+        if code_type == 'ipc to bns':
+            bns_result = find_bns_from_ipc(section)
             if bns_result:
                 bns_supper = bns_result.split('(')[0] if '(' in bns_result else bns_result
                 bns_data = find_extra_data_from_bns(bns_supper)
                 return JsonResponse({'bns': bns_result, 'bns_data': bns_data})
             else:
                 return JsonResponse({'error': 'BNS section not found for given IPC.'}, status=404)
-        elif bns_section:
-            ipc_result = find_ipc_from_bns(bns_section)
+        elif code_type == 'bns to ipc':
+            ipc_result = find_ipc_from_bns(section)
             if ipc_result:
-                bns_supper = bns_section.split('(')[0] if '(' in bns_section else bns_section
+                bns_supper = section.split('(')[0] if '(' in section else section
                 bns_data = find_extra_data_from_bns(bns_supper)
                 return JsonResponse({'ipc': ipc_result, 'bns_data': bns_data})
             else:
