@@ -38,10 +38,9 @@ def load_bnss_extra_data(bnss):
         ws = wb.active
 
         for row in ws.iter_rows(min_row=2, values_only=True):
-            section_crpc, heading_crpc, section_bnss, heading_bnss = [str(cell).strip() if cell is not None else '' for cell in row[:4]]
-            
+            section_bnss, heading_bnss, section_crpc, heading_crpc = [str(cell).strip() if cell is not None else '' for cell in row[:4]]
             if section_bnss == bnss:
-                return heading_bnss
+                return heading_crpc
 
     except Exception as e:
         print(f"Error occurred while reading Excel file: {e}")
@@ -56,7 +55,7 @@ def load_crpc_extra_data(crpc):
         ws = wb.active
 
         for row in ws.iter_rows(min_row=2, values_only=True):
-            section_crpc, heading_crpc, section_bnss, heading_bnss = [str(cell).strip() if cell is not None else '' for cell in row[:4]]
+            section_bnss, heading_bnss, section_crpc, heading_crpc = [str(cell).strip() if cell is not None else '' for cell in row[:4]]
             
             if section_crpc == crpc:
                 return heading_crpc
@@ -97,7 +96,7 @@ def home(request) -> Union[JsonResponse, render]:
             crpc_result = find_crpc_from_bnss(section)
             if crpc_result:
                 if crpc_result == "New Section":
-                    bnss_data = "New Section"
+                    bnss_data = load_bnss_extra_data(section)
                 else:
                     bnss_data = load_crpc_extra_data(crpc_result)
                 return JsonResponse({'crpc': crpc_result, 'bnss_data': bnss_data})
