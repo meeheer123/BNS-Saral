@@ -40,8 +40,12 @@ def load_bnss_crpc_mapping() -> Dict[str, str]:
     wb = load_workbook(filename=excel_path, read_only=True)
     ws = wb.active
 
-    for section_bnss, heading_bnss, section_crpc, heading_crpc in ws.iter_rows(min_row=2, values_only=True):
-        mapping[str(section_bnss).strip()] = str(section_crpc).strip()
+    for row in ws.iter_rows(min_row=2, values_only=True):
+        if len(row) >= 4:
+            section_bnss, heading_bnss, section_crpc, heading_crpc = row[:4]
+            mapping[str(section_bnss).strip()] = str(section_crpc).strip()
+        else:
+            print(f"Row with unexpected number of columns: {row}")
 
     return mapping
 
