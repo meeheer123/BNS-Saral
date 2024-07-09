@@ -35,7 +35,7 @@ def load_bnss_crpc_mapping() -> Dict[str, str]:
     A dictionary where keys are BNSS sections and values are CRPC sections.
     """
     mapping = {}
-    excel_path = get_csv_path('D:/bns/temp folder/KnowYourLaw/files/bnss_to_crpc_mapping.xlsx')
+    excel_path = get_csv_path('D:/ProjectWithMihir/BNS-Saral/files/bnss_to_crpc_mapping.xlsx')
 
     wb = load_workbook(filename=excel_path, read_only=True)
     ws = wb.active
@@ -59,7 +59,7 @@ def load_bnss_extra_data(bnss: str) -> str:
     Returns:
         str: The CRPC heading corresponding to the given BNSS section if found, otherwise an empty string.
     """
-    excel_path = get_csv_path('D:/bns/temp folder/KnowYourLaw/files/bnss_to_crpc_mapping.xlsx')
+    excel_path = get_csv_path('D:/ProjectWithMihir/BNS-Saral/files/bnss_to_crpc_mapping.xlsx')
 
     try:
         wb = load_workbook(filename=excel_path, read_only=True)
