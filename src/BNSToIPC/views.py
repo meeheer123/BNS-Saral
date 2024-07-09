@@ -43,16 +43,15 @@ def load_bns_ipc_mapping() -> Dict[str, str]:
     """
     mapping = {}
     csv_path = get_csv_path('D:/bns/temp folder/KnowYourLaw/files/bns_to_ipc_mapping.csv')
-    
+
     with open(csv_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile)
-        next(reader)  # Skip header row if exists
-        
+        next(reader, None)  # Skip header row if exists
+
         for row in reader:
-            bns = row[0].strip()  # Assuming first column is BNS
-            ipc = row[1].strip()  # Assuming second column is IPC
+            bns, ipc = map(str.strip, row[:2])  # Assuming first two columns are BNS and IPC
             mapping[bns] = ipc
-            
+
     return mapping
 
 # Function to load BNS extra data from CSV
@@ -69,7 +68,7 @@ def load_bns_extra_data() -> Dict[str, str]:
     
     with open(csv_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile)
-        next(reader)  # Skip header row if exists
+        next(reader, None)  # Skip header row
         
         for row in reader:
             bns, extra_info = map(str.strip, row[:2])  # Assuming first two columns are BNS and extra data
@@ -78,7 +77,7 @@ def load_bns_extra_data() -> Dict[str, str]:
     return bns_data
 
 # Function to find IPC given BNS
-def find_ipc_from_bns(bns):
+def find_ipc_from_bns(bns: str) -> Optional[str]:
     """
     Find IPC code corresponding to a given BNS code.
 
@@ -132,7 +131,7 @@ def home(request) -> Union[JsonResponse, render]:
     or the IPC code corresponding to a given BNS code. Retrieves additional data associated with the BNS code if available.
     
     Parameters:
-        request: The HTTP request object, expected to be a POST request with either `ipc` or `bns` in the POST data.
+        request: The HTTP request object, expected to be a POST request with either `section` or `code_type` in the POST data.
     
     Returns:
         JSON response containing either the BNS code and extra data for a given IPC code, or the IPC code and extra data for a given BNS code.
