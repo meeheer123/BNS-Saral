@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNS Saral | BSA To IEA</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'BNSToIPC/style.css' %}">
+</head>
+<body>
+    <div class="main-container">
+        <div class="container1a"></div>
+        <div class="container1">
+            <h1>BSA Saral</h1>
+        </div>
+        <div class="container2">
+            <form id="conversion-form" method="post" action="{% url 'home' %}">
+                {% csrf_token %}
+                <div class="form-item">
+                    <div class="input1">
+                        <label for="bsa">BSA:</label>
+                        <input type="text" id="bsa" name="bsa" class="form-control" placeholder="Enter section number">
+                        <label for="iea">IEA:</label>
+                        <input type="text" id="iea" name="iea" class="form-control" placeholder="Enter section number">
+                    </div>
+                    <button type="submit">Convert</button>
+                    <button type="reset" id="clear-button">Clear</button>
+                </div>
+            </form>
+        </div>
+        <div class="response-container">
+            <button id="read-more-button" style="display: none;">Read More</button>
+            <div class="response" id="response" style="display: none;">
+                <!-- Response content will be inserted here -->
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center; padding: 50px; font-size: small;">
+            Created by Mihir Pande
+    </div>
+
+    <script>
+        document.getElementById('conversion-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const bsaSection = document.getElementById('bsa').value.trim();
+            const ieaSection = document.getElementById('iea').value.trim();
+            let codeType = '';
+
+            if (bsaSection) {
+                codeType = 'bsa to iea';
+            } else if (ieaSection) {
+                codeType = 'iea to bsa';
+            } else {
+                alert('Please enter either BSA or IEA section number.');
+                return;
+            }
+
+            const sectionNumber = bsaSection || ieaSection;
+
+            fetch('{% url "home" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+                body: new URLSearchParams({
+                    'section': sectionNumber,
+                    'code_type': codeType
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const bsaInput = document.getElementById('bsa');
+                const ieaInput = document.getElementById('iea');
+                const responseElement = document.getElementById('response');
+                const readMoreButton = document.getElementById('read-more-button');
+
+                if (codeType === 'bsa to iea' && data.iea) {
+                    bsaInput.value = bsaSection;
+                    ieaInput.value = data.iea;
+                } else if (codeType === 'iea to bsa' && data.bsa) {
+                    ieaInput.value = ieaSection;
+                    bsaInput.value = data.bsa;
+                }
+
+                if (data.iea_data) {
+                    responseElement.innerText = data.iea_data.replace(/<para>/g, '\n');
+                    responseElement.style.display = 'none';
+                    readMoreButton.style.display = 'block';
+                } else {
+                    responseElement.innerText = '';
+                    readMoreButton.style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('clear-button').addEventListener('click', function() {
+            document.getElementById('bsa').value = '';
+            document.getElementById('iea').value = '';
+            document.getElementById('response').innerText = '';
+            document.getElementById('response').style.display = 'none';
+            document.getElementById('read-more-button').style.display = 'none';
+        });
+
+        document.getElementById('read-more-button').addEventListener('click', function() {
+            const responseElement = document.getElementById('response');
+            if (responseElement.style.display === 'none') {
+                responseElement.style.display = 'block';
+                this.innerText = 'Read Less';
+            } else {
+                responseElement.style.display = 'none';
+                this.innerText = 'Read More';
+            }
+        });
+    </script>
+</body>
+</html>
