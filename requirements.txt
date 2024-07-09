@@ -1,3 +1,6 @@
 django
 selenium
 parsel
+fitz
+pandas
+PyMuPDF 
