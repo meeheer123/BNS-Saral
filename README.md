@@ -31,7 +31,7 @@ Ensure you have the following installed:
 
    ```bash
    python3 -m venv venv
-   source venv/bin/activate
+   ./venv/Scripts/activate
    ```
 3. Install project dependencies:
 
