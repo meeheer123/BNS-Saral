@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # my apps
     'BNSToIPC',
+    'BNSSToCRPC',
 ]
 
 MIDDLEWARE = [

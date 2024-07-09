@@ -4,3 +4,5 @@ parsel
 fitz
 pandas
 PyMuPDF 
+tabula
+openpyxl
