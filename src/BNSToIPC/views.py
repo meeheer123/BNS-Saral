@@ -64,7 +64,7 @@ def load_bns_extra_data() -> Dict[str, str]:
         Dict[str, str]: A dictionary where keys are BNS values and values are the corresponding extra information.
     """
     bns_data = {}
-    csv_path = get_csv_path('D:/bns/temp folder/KnowYourLaw/files/bns_extra_data.csv')
+    csv_path = get_csv_path('bns_extra_data.csv')
     
     with open(csv_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile)
