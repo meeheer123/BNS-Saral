@@ -42,7 +42,7 @@ def load_bns_ipc_mapping() -> Dict[str, str]:
         dict: A dictionary mapping BNS codes to IPC codes.
     """
     mapping = {}
-    csv_path = get_csv_path('D:/bns/temp folder/KnowYourLaw/files/bns_to_ipc_mapping.csv')
+    csv_path = get_csv_path('bns_to_ipc_mapping.csv')
 
     with open(csv_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile)
