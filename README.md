@@ -1,7 +1,3 @@
-Here's an improved version of your README:
-
----
-
 # BNS Saral
 
 The goal of this project is to provide a simple way to convert the old laws to the corresponding new ones in India.
