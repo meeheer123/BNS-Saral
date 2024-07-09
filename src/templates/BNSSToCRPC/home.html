@@ -14,7 +14,7 @@
             <h1>BNSS Saral</h1>
         </div>
         <div class="container2">
-            <form id="conversion-form" method="post" action="{% url 'home' %}">
+            <form id="conversion-form" method="post" action="{% url 'bnss_to_crpc' %}">
                 {% csrf_token %}
                 <div class="form-item">
                     <div class="input1">
@@ -57,7 +57,7 @@
 
             const sectionNumber = crpcSection || bnssSection;
 
-            fetch('{% url "home" %}', {
+            fetch('{% url "bnss_to_crpc" %}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',

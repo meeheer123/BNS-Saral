@@ -14,7 +14,7 @@
             <h1>BSA Saral</h1>
         </div>
         <div class="container2">
-            <form id="conversion-form" method="post" action="{% url 'home' %}">
+            <form id="conversion-form" method="post" action="{% url 'bsa_to_iea' %}">
                 {% csrf_token %}
                 <div class="form-item">
                     <div class="input1">
@@ -57,7 +57,7 @@
 
             const sectionNumber = bsaSection || ieaSection;
 
-            fetch('{% url "home" %}', {
+            fetch('{% url "bsa_to_iea" %}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',

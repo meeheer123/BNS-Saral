@@ -21,7 +21,7 @@ def get_csv_path(filename: str) -> str:
     normalized_path = os.path.normpath(filename)
     
     try:
-        return os.path.join(current_dir, '..', 'files', normalized_path)
+        return os.path.join(current_dir, '..', '..', 'files', normalized_path)
     except Exception as e:
         print(f"Error occurred while constructing CSV path: {e}")
         return None
@@ -35,7 +35,7 @@ def load_bnss_crpc_mapping() -> Dict[str, str]:
     A dictionary where keys are BNSS sections and values are CRPC sections.
     """
     mapping = {}
-    excel_path = get_csv_path('D:/ProjectWithMihir/BNS-Saral/files/bnss_to_crpc_mapping.xlsx')
+    excel_path = get_csv_path('bnss_to_crpc_mapping.xlsx')
 
     wb = load_workbook(filename=excel_path, read_only=True)
     ws = wb.active
@@ -59,7 +59,7 @@ def load_bnss_extra_data(bnss: str) -> str:
     Returns:
         str: The CRPC heading corresponding to the given BNSS section if found, otherwise an empty string.
     """
-    excel_path = get_csv_path('D:/ProjectWithMihir/BNS-Saral/files/bnss_to_crpc_mapping.xlsx')
+    excel_path = get_csv_path('bnss_to_crpc_mapping.xlsx')
 
     try:
         wb = load_workbook(filename=excel_path, read_only=True)
@@ -86,7 +86,7 @@ def load_crpc_extra_data(crpc: str) -> str:
     - The heading corresponding to the given CRPC section if found.
     - An empty string if no match is found or an error occurs.
     """
-    excel_path = get_csv_path('D:/bns/temp folder/KnowYourLaw/files/bnss_to_crpc_mapping.xlsx')
+    excel_path = get_csv_path('bnss_to_crpc_mapping.xlsx')
 
     try:
         wb = load_workbook(filename=excel_path, read_only=True)

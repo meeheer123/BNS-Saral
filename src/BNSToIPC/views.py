@@ -27,7 +27,7 @@ def get_csv_path(filename):
     normalized_path = os.path.normpath(filename)
     
     try:
-        return os.path.join(current_dir, '..', 'files', normalized_path)
+        return os.path.join(current_dir, '..', '..', 'files', normalized_path)
     except Exception as e:
         print(f"Error occurred while constructing CSV path: {e}")
         return None

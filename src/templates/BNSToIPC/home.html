@@ -14,7 +14,7 @@
             <h1>BNS Saral</h1>
         </div>
         <div class="container2">
-            <form id="conversion-form" method="post" action="{% url 'home' %}">
+            <form id="conversion-form" method="post" action="{% url 'bns_to_ipc' %}">
                 {% csrf_token %}
                 <div class="form-item">
                     <div class="input1">
@@ -57,7 +57,7 @@
 
             const sectionNumber = ipcSection || bnsSection;
 
-            fetch('{% url "home" %}', {
+            fetch('{% url "bns_to_ipc" %}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
