@@ -83,8 +83,8 @@
                     bsaInput.value = data.bsa;
                 }
 
-                if (data.iea_data) {
-                    responseElement.innerText = data.iea_data.replace(/<para>/g, '\n');
+                if (data.bsa_data) {
+                    responseElement.innerText = data.bsa_data.replace(/<para>/g, '\n');
                     responseElement.style.display = 'none';
                     readMoreButton.style.display = 'block';
                 } else {

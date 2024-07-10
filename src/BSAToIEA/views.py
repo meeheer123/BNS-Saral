@@ -41,11 +41,8 @@ def load_bsa_iea_mapping() -> Dict[str, str]:
     ws = wb.active
 
     for row in ws.iter_rows(min_row=2, values_only=True):
-        if len(row) >= 4:
             section_bsa, section_iea, subject, bsa_data = row[:4]
-            mapping[section_bsa] = section_iea
-        else:
-            print(f"Row with unexpected number of columns: {row}")
+            mapping[str(section_bsa)] = str(section_iea)
 
     return mapping
 
@@ -114,7 +111,6 @@ def find_iea_from_bsa(bsa: str) -> Union[str, None]:
     - A string representing the corresponding IEA section.
     """
     mapping = load_bsa_iea_mapping()
-    print(mapping)
     return mapping.get(bsa)
 
 def find_bsa_from_iea(iea: str) -> Optional[str]:
@@ -130,7 +126,7 @@ def find_bsa_from_iea(iea: str) -> Optional[str]:
     mapping = load_bsa_iea_mapping()
 
     for bsa, mapped_iea in mapping.items():
-        if mapped_iea == iea:
+        if str(mapped_iea).strip() == iea:
             return bsa
         
     return None
