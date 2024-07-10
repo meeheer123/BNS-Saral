@@ -6,11 +6,32 @@ import os
 from django.shortcuts import render
 from django.http import JsonResponse
 
+def has_multiple(section: str) -> Optional[str]:
+    """
+    Checks if a given section is part of a predefined list of sections that map to multiple keys.
+    
+    Parameters:
+        section (str): The section number to be checked.
+        
+    Returns:
+        str: The corresponding key if the section is found in the dictionary values, otherwise None.
+    """
+    multiple_dict = {
+        '178(5)': ['246', '248'],
+        '179': ['237', '238', '239', '240', '241', '250', '251', '254', '258', '260', '489B'],
+        '180': ['242', '243', '252', '253', '259', '489C'],
+        '181': ['233', '234', '235', '256', '257', '489D']
+    }
+
+    for key, value in multiple_dict.items():
+        if section in value:
+            return key
+
 def is_deleted(section: Union[str, int]) -> bool:
     """
     Check if a given section is in a predefined list of deleted sections.
 
-    Args:
+    Parameters:
         section (Union[str, int]): The section number to be checked.
 
     Returns:
@@ -157,6 +178,10 @@ def home(request) -> Union[JsonResponse, render]:
         if code_type == 'ipc to bns':
             if is_deleted(section):
                 return JsonResponse({'bns': 'Deleted', 'bns_data': 'This section has been deleted.'})
+            if has_multiple(section):
+                bns_result = has_multiple(section)
+                bns_data = find_extra_data_from_bns(bns_result)
+                return JsonResponse({'bns': bns_result, 'bns_data': bns_data})
             bns_result = find_bns_from_ipc(section)
             if bns_result:
                 bns_supper = bns_result.split('(')[0] if '(' in bns_result else bns_result
