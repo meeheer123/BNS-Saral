@@ -6,6 +6,19 @@ import os
 from django.shortcuts import render
 from django.http import JsonResponse
 
+def is_deleted(section: Union[str, int]) -> bool:
+    """
+    Check if a given section is in a predefined list of deleted sections.
+
+    Args:
+        section (Union[str, int]): The section number to be checked.
+
+    Returns:
+        bool: True if the section is in the deleted list, False otherwise.
+    """
+    deleted = {'29A', '18', '14', '50', '53A', '377', '497', '124A', '236', '153A', '264', '265', '266', '267', '444', '446'}
+    return str(section) in deleted
+
 # Function to get path to CSV files
 def get_csv_path(filename):
     """
@@ -142,6 +155,8 @@ def home(request) -> Union[JsonResponse, render]:
         code_type = request.POST.get('code_type', '').strip()
 
         if code_type == 'ipc to bns':
+            if is_deleted(section):
+                return JsonResponse({'bns': 'Deleted', 'bns_data': 'This section has been deleted.'})
             bns_result = find_bns_from_ipc(section)
             if bns_result:
                 bns_supper = bns_result.split('(')[0] if '(' in bns_result else bns_result
