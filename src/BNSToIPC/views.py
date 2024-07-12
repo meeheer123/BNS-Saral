@@ -58,13 +58,9 @@ def get_csv_path(filename):
         raise ValueError('Invalid filename provided')
     
     current_dir = os.path.dirname(os.path.realpath(__file__))
-    normalized_path = os.path.normpath(filename)
+    normalized_path = os.path.normpath(os.path.join(current_dir, 'files', filename))
     
-    try:
-        return os.path.join(current_dir, '..', '..', 'files', normalized_path)
-    except Exception as e:
-        print(f"Error occurred while constructing CSV path: {e}")
-        return None
+    return normalized_path
 
 # Function to load BNS to IPC mapping from CSV
 def load_bns_ipc_mapping() -> Dict[str, str]:
