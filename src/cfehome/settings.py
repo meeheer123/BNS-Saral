@@ -129,6 +129,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Directory where collectstatic will place static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # For development
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),

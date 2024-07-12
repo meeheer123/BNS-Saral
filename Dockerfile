@@ -46,7 +46,7 @@ RUN pip install -r /tmp/requirements.txt
 # database isn't available during build
 # run any other commands that do not need the database
 # such as:
-# RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
 
 # set the Django default project name
 ARG PROJ_NAME="cfehome"
