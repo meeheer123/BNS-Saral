@@ -61,7 +61,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'bns_saral.urls'
+ROOT_URLCONF = 'cfehome.urls'
 
 TEMPLATES = [
     {
@@ -79,7 +79,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'bns_saral.wsgi.application'
+WSGI_APPLICATION = 'cfehome.wsgi.application'
 
 
 # Database
