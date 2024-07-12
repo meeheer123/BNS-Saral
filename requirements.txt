@@ -6,3 +6,4 @@ pandas
 PyMuPDF 
 tabula
 openpyxl
+gunicorn
