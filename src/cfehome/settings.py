@@ -62,6 +62,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Add your Railway domain to the trusted origins
+CSRF_TRUSTED_ORIGINS = ['https://bns-saral.up.railway.app']
+
+# Optional: If you're using a CSRF token cookie
+CSRF_COOKIE_SECURE = True
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'cfehome.urls'

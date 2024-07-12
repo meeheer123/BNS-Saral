@@ -1,118 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BNS Saral | BNS To IPC</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'BNSToIPC/style.css' %}">
-</head>
-<body>
-    <div class="main-container">
-        <div class="container1a"></div>
-        <div class="container1">
-            <h1>BNS Saral</h1>
-        </div>
-        <div class="container2">
-            <form id="conversion-form" method="post" action="{% url 'bns_to_ipc' %}">
-                {% csrf_token %}
-                <div class="form-item">
-                    <div class="input1">
-                        <label for="ipc">IPC:</label>
-                        <input type="text" id="ipc" name="ipc" class="form-control" placeholder="Enter section number">
-                        <label for="bns">BNS:</label>
-                        <input type="text" id="bns" name="bns" class="form-control" placeholder="Enter section number">
-                    </div>
-                    <button type="submit">Convert</button>
-                    <button type="reset" id="clear-button">Clear</button>
-                </div>
-            </form>
-        </div>
-        <div class="response-container">
-            <button id="read-more-button" style="display: none;">Read More</button>
-            <div class="response" id="response" style="display: none;">
-                <!-- Response content will be inserted here -->
-            </div>
-        </div>
-    </div>
-    <div style="text-align: center; padding: 50px; font-size: small;">
-            Created by Mihir Pande
-    </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BNS Saral | BNS To IPC</title>
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'BNSToIPC/style.css' %}" />
+	</head>
+	<body>
+		<div class="main-container">
+			<div class="container1a"></div>
+			<div class="container1">
+				<h1>BNS Saral</h1>
+			</div>
+			<div class="container2">
+				<form
+					id="conversion-form"
+					method="post"
+					action="{% url 'bns_to_ipc' %}"
+				>
+					{% csrf_token %}
+					<div class="form-item">
+						<div class="input1">
+							<label for="ipc">IPC:</label>
+							<input
+								type="text"
+								id="ipc"
+								name="ipc"
+								class="form-control"
+								placeholder="Enter section number"
+							/>
+							<label for="bns">BNS:</label>
+							<input
+								type="text"
+								id="bns"
+								name="bns"
+								class="form-control"
+								placeholder="Enter section number"
+							/>
+						</div>
+						<button type="submit">Convert</button>
+						<button type="reset" id="clear-button">Clear</button>
+					</div>
+				</form>
+			</div>
+			<div class="response-container">
+				<button id="read-more-button" style="display: none">Read More</button>
+				<div class="response" id="response" style="display: none">
+					<!-- Response content will be inserted here -->
+				</div>
+			</div>
+		</div>
+		<div style="text-align: center; padding: 50px; font-size: small">
+			Created by Mihir Pande
+		</div>
 
-    <script>
-        document.getElementById('conversion-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const ipcSection = document.getElementById('ipc').value.trim();
-            const bnsSection = document.getElementById('bns').value.trim();
-            let codeType = '';
+		<script>
+			document
+				.getElementById("conversion-form")
+				.addEventListener("submit", function (event) {
+					event.preventDefault();
+					const ipcSection = document.getElementById("ipc").value.trim();
+					const bnsSection = document.getElementById("bns").value.trim();
+					let codeType = "";
 
-            if (ipcSection) {
-                codeType = 'ipc to bns';
-            } else if (bnsSection) {
-                codeType = 'bns to ipc';
-            } else {
-                alert('Please enter either IPC or BNS section number.');
-                return;
-            }
+					if (ipcSection) {
+						codeType = "ipc to bns";
+					} else if (bnsSection) {
+						codeType = "bns to ipc";
+					} else {
+						alert("Please enter either IPC or BNS section number.");
+						return;
+					}
 
-            const sectionNumber = ipcSection || bnsSection;
+					const sectionNumber = ipcSection || bnsSection;
 
-            fetch('{% url "bns_to_ipc" %}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                },
-                body: new URLSearchParams({
-                    'section': sectionNumber,
-                    'code_type': codeType
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const ipcInput = document.getElementById('ipc');
-                const bnsInput = document.getElementById('bns');
-                const responseElement = document.getElementById('response');
-                const readMoreButton = document.getElementById('read-more-button');
+					fetch('{% url "bns_to_ipc" %}', {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/x-www-form-urlencoded",
+							"X-CSRFToken": document.querySelector(
+								"[name=csrfmiddlewaretoken]"
+							).value,
+						},
+						body: new URLSearchParams({
+							section: sectionNumber,
+							code_type: codeType,
+						}),
+					})
+						.then((response) => {
+							if (!response.ok) {
+								throw new Error(
+									"Network response was not ok " + response.statusText
+								);
+							}
+							return response.json();
+						})
+						.then((data) => {
+							const ipcInput = document.getElementById("ipc");
+							const bnsInput = document.getElementById("bns");
+							const responseElement = document.getElementById("response");
+							const readMoreButton =
+								document.getElementById("read-more-button");
 
-                if (codeType === 'ipc to bns' && data.bns) {
-                    ipcInput.value = ipcSection;
-                    bnsInput.value = data.bns;
-                } else if (codeType === 'bns to ipc' && data.ipc) {
-                    bnsInput.value = bnsSection;
-                    ipcInput.value = data.ipc;
-                }
+							if (codeType === "ipc to bns" && data.bns) {
+								ipcInput.value = ipcSection;
+								bnsInput.value = data.bns;
+							} else if (codeType === "bns to ipc" && data.ipc) {
+								bnsInput.value = bnsSection;
+								ipcInput.value = data.ipc;
+							}
 
-                if (data.bns_data) {
-                    responseElement.innerText = data.bns_data.replace(/<para>/g, '\n');
-                    responseElement.style.display = 'none';
-                    readMoreButton.style.display = 'block';
-                } else {
-                    responseElement.innerText = '';
-                    readMoreButton.style.display = 'none';
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        });
+							if (data.bns_data) {
+								responseElement.innerText = data.bns_data.replace(
+									/<para>/g,
+									"\n"
+								);
+								responseElement.style.display = "none";
+								readMoreButton.style.display = "block";
+							} else {
+								responseElement.innerText = "";
+								readMoreButton.style.display = "none";
+							}
+						})
+						.catch((error) => console.error("Error:", error));
+				});
 
-        document.getElementById('clear-button').addEventListener('click', function() {
-            document.getElementById('ipc').value = '';
-            document.getElementById('bns').value = '';
-            document.getElementById('response').innerText = '';
-            document.getElementById('response').style.display = 'none';
-            document.getElementById('read-more-button').style.display = 'none';
-        });
+			document
+				.getElementById("clear-button")
+				.addEventListener("click", function () {
+					document.getElementById("ipc").value = "";
+					document.getElementById("bns").value = "";
+					document.getElementById("response").innerText = "";
+					document.getElementById("response").style.display = "none";
+					document.getElementById("read-more-button").style.display = "none";
+				});
 
-        document.getElementById('read-more-button').addEventListener('click', function() {
-            const responseElement = document.getElementById('response');
-            if (responseElement.style.display === 'none') {
-                responseElement.style.display = 'block';
-                document.getElementById('read-more-button').innerText = 'Read Less';
-            } else {
-                responseElement.style.display = 'none';
-                document.getElementById('read-more-button').innerText = 'Read More';
-            }
-        });
-    </script>
-</body>
+			document
+				.getElementById("read-more-button")
+				.addEventListener("click", function () {
+					const responseElement = document.getElementById("response");
+					if (responseElement.style.display === "none") {
+						responseElement.style.display = "block";
+						document.getElementById("read-more-button").innerText = "Read Less";
+					} else {
+						responseElement.style.display = "none";
+						document.getElementById("read-more-button").innerText = "Read More";
+					}
+				});
+		</script>
+	</body>
 </html>
