@@ -7,3 +7,4 @@ PyMuPDF
 tabula
 openpyxl
 gunicorn
+whitenoise
