@@ -50,14 +50,6 @@ Ensure you have the following installed:
    python manage.py runserver
    ```
 
-## Deployment
-
-To deploy the project, make sure you have a `Procfile` set up for your deployment environment. Example content for `Procfile`:
-
-    ``plaintext     web: gunicorn src.wsgi     ``
-
-This setup assumes you are using Gunicorn for deployment. Adjust accordingly for your specific environment.
-
 ## Usage
 
 Once the server is running, open your web browser and navigate to `http://127.0.0.1:8000` to access the application.
