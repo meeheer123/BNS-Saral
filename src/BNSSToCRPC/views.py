@@ -4,27 +4,27 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from openpyxl import load_workbook
 
-def get_csv_path(filename: str) -> str:
+# Function to get path to CSV files
+def get_csv_path(filename):
     """
-    Constructs a secure file path for a given filename, ensuring it does not contain any directory traversal characters (`..`).
-    
+    Return the full path to a CSV file given the filename.
+
     Parameters:
-        filename (str): The name of the file for which the path needs to be constructed.
-        
+    filename (str): The name of the CSV file.
+
     Returns:
-        str: The constructed file path as a string. Returns `None` if an error occurs during path construction.
+    str: The full path to the CSV file.
+
+    Raises:
+    ValueError: If the filename contains '..' indicating an invalid filename.
     """
     if '..' in filename:
         raise ValueError('Invalid filename provided')
     
     current_dir = os.path.dirname(os.path.realpath(__file__))
-    normalized_path = os.path.normpath(filename)
+    normalized_path = os.path.normpath(os.path.join(current_dir, 'files', filename))
     
-    try:
-        return os.path.join(current_dir, '..', '..', 'files', normalized_path)
-    except Exception as e:
-        print(f"Error occurred while constructing CSV path: {e}")
-        return None
+    return normalized_path
 
 def load_bnss_crpc_mapping() -> Dict[str, str]:
     """
