@@ -1,4 +1,4 @@
-
+django
 selenium
 parsel
 fitz
