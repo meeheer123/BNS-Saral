@@ -74,6 +74,8 @@ def load_bns_ipc_mapping() -> Dict[str, str]:
     mapping = {}
     csv_path = get_csv_path('bns_to_ipc_mapping.csv')
 
+    raise Exception("Sorry")
+
     with open(csv_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile)
         next(reader, None)  # Skip header row if exists
