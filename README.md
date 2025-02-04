@@ -6,7 +6,7 @@
 
 ## ✨ Features  
 
-✅ **Seamless Law Conversion** – Instantly find new CrPC equivalents for old IPC sections.  
+✅ **Seamless Law Conversion** – Seamless Legal Framework Conversion – Instantly map provisions between different laws.
 ✅ **User-Friendly Interface** – Clean and intuitive design for easy navigation.  
 ✅ **Detailed Section Information** – Get additional insights for each law.  
 ✅ **Easy Deployment** – Includes a `Procfile` for hassle-free hosting.  
