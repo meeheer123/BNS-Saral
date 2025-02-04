@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-13aq1hj0casc6q7h&hx-0q98fmp0vcn&e_)^5ino1(zj%=e#65'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['.railway.app']
+ALLOWED_HOSTS = ['.railway.app', '.vercel.app']
 
 if DEBUG:
     ALLOWED_HOSTS += [

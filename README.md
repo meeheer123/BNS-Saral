@@ -1,65 +1,96 @@
-# BNS Saral
+# 🏛 BNS Saral – Simplifying Legal Transitions  
 
-The goal of this project is to provide a simple way to convert the old laws to the corresponding new ones in India.
+**BNS Saral** is a Django-based web application designed to help users convert old IPC (Indian Penal Code) laws to their corresponding provisions in the new CrPC (Code of Criminal Procedure). This tool aims to provide an intuitive and efficient way for legal professionals, students, and researchers to adapt to the updated legal framework in India.  
 
-### Main Features
+---
 
-- Simple User Interface
-- Intuitive Design
-- Option to Get Additional Details About Each Section
-- Procfile for Easy Deployments
-- Separated Requirements Files
+## ✨ Features  
 
-## Getting Started
+✅ **Seamless Law Conversion** – Instantly find new CrPC equivalents for old IPC sections.  
+✅ **User-Friendly Interface** – Clean and intuitive design for easy navigation.  
+✅ **Detailed Section Information** – Get additional insights for each law.  
+✅ **Easy Deployment** – Includes a `Procfile` for hassle-free hosting.  
+✅ **Optimized Codebase** – Uses Django best practices with separated requirements files.  
 
-### Prerequisites
+---
 
-Ensure you have the following installed:
+## 🏗 Tech Stack  
 
-- Python 3.x
-- Git
+- **Backend:** Django
+- **Frontend:** HTML, CSS, Bootstrap  
+- **Database:** PostgreSQL  
+- **Deployment:** Vercel  
 
-### Installation
+---
 
-1. Clone the repository from GitHub and switch to the new directory:
+## 🚀 Getting Started  
 
-   ```bash
-   git clone https://github.com/meeheer123/BNS-Saral.git
-   cd BNS-Saral
-   ```
-2. Activate the virtual environment for your project:
+### Prerequisites  
 
-   ```bash
-   python3 -m venv venv
-   ./venv/Scripts/activate
-   ```
-3. Install project dependencies:
+Ensure you have the following installed:  
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Apply the migrations:
+- Python 3.x  
+- Git  
 
-   ```bash
-   cd src
-   python manage.py migrate
-   ```
-5. Run the development server:
+### Installation  
 
-   ```bash
-   python manage.py runserver
-   ```
+1️⃣ **Clone the repository:**  
+```bash
+git clone https://github.com/meeheer123/BNS-Saral.git
+cd BNS-Saral
+```
+  
+2️⃣ **Activate the virtual environment:**  
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-## Usage
+3️⃣ **Install dependencies:**  
+```bash
+pip install -r requirements.txt
+```
 
-Once the server is running, open your web browser and navigate to `http://127.0.0.1:8000` to access the application.
+4️⃣ **Apply migrations:**  
+```bash
+cd src
+python manage.py migrate
+```
 
-## Contributing
+5️⃣ **Run the development server:**  
+```bash
+python manage.py runserver
+```
 
-Contributions are welcome! Please fork the repository and submit a pull request with your changes.
+🔗 Now, open `http://127.0.0.1:8000` in your browser.  
 
-## License
+---
 
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
+## 📷 Screenshots 
+
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+
+---
+
+## 🎯 Future Enhancements  
+
+🔹 AI-based legal text analysis  
+🔹 Search functionality for quick lookups  
+🔹 Support for regional languages  
+🔹 API integrations for external legal tools  
+
+---
+
+## 🤝 Contributing  
+
+Contributions are welcome! Please fork the repository and submit a pull request with your improvements.  
+
+---
+
+## 📜 License  
+
+This project is licensed under the **MIT License**. See the `LICENSE` file for details.  
 
 ---
